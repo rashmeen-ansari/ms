@@ -1,0 +1,54 @@
+1) create Docker Hub account (sign up)
+2) login to https://labs.play-with-docker.com/
+
+Click on start
+3)add new instance
+4)perform following:
+Method1:
+To pull and push images using docker
+Command: to check docker version
+docker –version
+Command: to pull readymade image
+docker pull rocker/verse
+Command: to check images in docker
+docker images
+Now Login to docker hub and create repository
+Click on Create button
+Now check repository created
+
+Command: to login to your docker account
+docker login –username=kbdocker11
+password:
+note: kbdocker11 is my docker ID . You will use your docker ID here. And enter your password .
+Command : to tag image
+docker tag 8c3e4e2c3e kbdocker11/repo1:firsttry
+note: here 8c3e4e2c3e this is image id which you can get from docker images
+command.
+Command: to push image to docker hub account
+docker push kbdocker11/repo1:firsttry
+note: firsttry is tag name created above.
+Check it in docker hub now
+Click on tags and check
+
+Method 2:
+Build an image then push it to docker and run it
+Command : to create docker file
+1. cat >Dockerfile<<EOF
+2. FROM busybox
+3. CMD echo "Hello world! This is my first Docker image."
+4. EOF
+Command : to build image from docker file
+docker build –t kbdocker11/repo2 .
+mmand: to check docker images
+docker images
+Command: to push image to docker hub
+docker push kbdocker11/repo2 .
+Now check it on docker hub
+
+
+command: to run docker image:
+docker run kbdocker11/repo2
+
+Now close session
+
+
