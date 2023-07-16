@@ -1,0 +1,65 @@
+1)Install .Net Core Sdk (Link: https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/install)
+2)create folder MyMVC folder in C: drive or any other drive
+3)open command prompt and perform following operations
+Command: to create mvc project
+dotnet new mvc --auth none
+4)Go to the controllers folder and modify HomeController.cs file to match the following code: 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using MyMVC.Models;
+namespace MyMVC.Controllers
+{ public class HomeController : Controller
+{
+public String Index()
+{ return "Hello World"; }
+}
+}
+5) Run the project
+Now open browser and and type URL: localhost:5001
+6) Now go back to command prompt and stop running project using CTRL+C
+7)Go to models folder and add new file StockQuote.cs to it with following content
+using System;
+namespace MyMVC.Models
+{
+public class StockQuote
+{ public string Symbol {get;set;}
+public int Price{get;set;}
+}
+}
+8)Now Add View to folder then home folder in it and modify index.cshtml file to match following
+@{
+ViewData["Title"] = "Home Page";
+}
+<div>
+Symbol: @Model.Symbol <br/>
+Price: $@Model.Price<br/>
+</div>
+9)Now modify HomeController.cs file to match following:
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using MyMVC.Models;
+namespace MyMVC.Controllers
+{
+public class HomeController : Controller
+{ public async Task <IActionResult> Index()
+{
+var model= new StockQuote{ Symbol='HLLO', Price=3200};
+return View(model);
+}
+}
+}
+10)Now run the project usingdotnet run
+11)Now go back to browser and refresh to get modified view response
+
+
+
