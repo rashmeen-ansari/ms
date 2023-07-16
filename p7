@@ -1,0 +1,46 @@
+(create docker hub login first to use it in play with docker)
+Now login in to https://labs.play-with-docker.com
+
+Click on Start
+Click on Add New Instance
+Start typing following commands
+Command : To run teamservice
+docker run -d -p 5000:5000 -e PORT=5000 \
+-e LOCATION__URL=http://localhost:5001 \
+dotnetcoreservices/teamservice:location
+output: (you can observe that it has started port 5000 on top)
+
+Command: to run location service
+docker run -d -p 5001:5001 -e PORT=5001 \
+dotnetcoreservices/locationservice:nodb
+output: (now it has started one more port that is 5001 for location service)
+
+Command : to check running images in docker
+docker images
+
+Command: to create new team
+curl -H "Content-Type:application/json" -X POST -d \
+'{"id":"e52baa63-d511-417e-9e54-7aab04286281", "name":"KC"}' http://localhost:5000/teams
+
+Command :To confirm that team is added
+curl http://localhost:5000/teams/e52baa63-d511-417e-9e54-7aab04286281
+Output:
+
+Command : to add new member to team
+curl -H "Content-Type:application/json" -X POST -d \
+'{"id":"63e7acf8-8fae-42ce-9349-3c8593ac8292", "firstName":"Kirti", "lastName":"Bhatt"}'
+http://localhost:5000/teams/e52baa63-d511-417e-9e54-7aab04286281/members
+Output:
+
+Command :To confirm member added
+curl http://localhost:5000/teams/e52baa63-d511-417e-9e54-7aab04286281
+
+Command : To add location for member
+curl -H "Content-Type:application/json" -X POST -d \
+'{"id":"64c3e69f-1580-4b2f-a9ff-2c5f3b8f0e1f", "latitude":12.0, "longitude":12.0, "altitude":10.0,"timestamp":0, "memberId":"63e7acf8-8fae-42ce-9349-3c8593ac8292"}' http://localhost:5001/locations/63e7acf8-
+8fae-42ce-9349-3c8593ac8292
+Output:
+
+Command : To confirm location is added in member
+curl http://localhost:5001/locations/63e7acf8-8fae-42ce-9349-3c8593ac8292
+Output:
